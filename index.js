@@ -4,7 +4,20 @@ var assert = require('assert-plus');
 var version = require('./src/version');
 var apiServer = require('./src/api-server.js');
 
-var logger = bunyan.createLogger({name: "tacoday-api"});
+const prettyStream = require('bunyan-prettystream');
+
+var prettyStdOut = new prettyStream();
+prettyStdOut.pipe(process.stdout);
+
+var logger = bunyan.createLogger({
+	name: "tacoday-api",
+	streams: [{
+		level: 'debug',
+		type: 'raw',
+		stream: prettyStdOut
+	}]
+});
+
 var SERVER_PORT = process.env.TACODAY_API_PORT || 8080;
 
 function onServerCreated(err, server) {

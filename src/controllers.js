@@ -14,7 +14,7 @@ function loadControllerFile(controllerFilePath, server, logger) {
     controller = require(controllerFilePath);
     /*eslint-enable global-require */
     if (typeof controller.init !== 'function') {
-      throw new Error(`Could not initialize controller ${controllerFilePath} ` +
+      throw new Error('Could not initialize controller ${controllerFilePath} ' +
         'successfully, function named "init" is missing');
     }
     
